@@ -342,9 +342,9 @@ const getLocations = () => {
 const getLocationByName = (location) => {
   if (!location) return null;
 
-  const filteredLocation = data.map((city) => city.location === location);
-  if (filteredLocation > 0) {
-    return filteredLocation[0];
+  const filteredLocation = data.find((city) => city.location.toLowerCase() === location.toLowerCase());
+  if (filteredLocation) {
+    return filteredLocation;
   } else {
     const defaultLocation = {
       location: "",
