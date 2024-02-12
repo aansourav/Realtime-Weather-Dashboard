@@ -23,8 +23,7 @@ const useWeather = () => {
 
   const [error, setError] = useState(null);
 
-  // const { searchedLocation } = useContext(LocationContext);
-  // console.log(searchedLocation);
+  const { selectedLocation } = useContext(LocationContext);
 
   const fetchWeatherData = async (latitude, longitude) => {
     try {
@@ -47,8 +46,8 @@ const useWeather = () => {
 
       const data = await response.json();
 
-      setWeatherData((prevWeatherData) => ({
-        ...prevWeatherData,
+      const updateWeatherData = {
+        ...weatherData,
         location: data?.name,
         climate: data?.weather[0]?.main,
         climateIcon: data?.weather[0]?.icon,
@@ -61,7 +60,8 @@ const useWeather = () => {
         time: data?.dt,
         longitude: longitude,
         latitude: latitude,
-      }));
+      };
+      setWeatherData(updateWeatherData);
     } catch (err) {
       setError(err);
     } finally {
@@ -80,12 +80,20 @@ const useWeather = () => {
       message: "Finding location...",
     });
 
-    navigator.geolocation.getCurrentPosition((position) => {
-      fetchWeatherData(position.coords.latitude, position.coords.longitude);
-    });
-  }, []);
+    if (selectedLocation.latitude && selectedLocation.longitude) {
+      fetchWeatherData(selectedLocation.latitude, selectedLocation.longitude);
+    } else {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        fetchWeatherData(position.coords.latitude, position.coords.longitude);
+      });
+    }
+  }, [selectedLocation.latitude, selectedLocation.longitude]);
 
-  return { weatherData, error, loading };
+  return {
+    weatherData,
+    error,
+    loading,
+  };
 };
 
 export default useWeather;

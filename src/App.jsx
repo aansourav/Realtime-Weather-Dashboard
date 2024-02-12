@@ -1,19 +1,20 @@
-
 import Page from "./Page";
-import { FavouriteProvider, LocationProvider, WeatherProvider } from "./provider";
-
+import {
+    FavouriteProvider,
+    LocationProvider,
+    WeatherProvider,
+} from "./provider";
 
 function App() {
-
-  return (
-    <WeatherProvider>
-      <FavouriteProvider>
+    return (
         <LocationProvider>
-          <Page />
+            <WeatherProvider>
+                <FavouriteProvider>
+                    <Page />
+                </FavouriteProvider>
+            </WeatherProvider>
         </LocationProvider>
-      </FavouriteProvider>
-    </WeatherProvider>
-  );
+    );
 }
 
 export default App;

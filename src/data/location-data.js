@@ -336,24 +336,25 @@ const data = [
   },
 ];
 
-const getLocations = () => {
+function getLocations() {
   return data;
-};
-const getLocationByName = (location) => {
+}
+
+function getLocationByName(location) {
   if (!location) return null;
 
-  const filteredLocation = data.find((city) => city.location.toLowerCase() === location.toLowerCase());
-  if (filteredLocation) {
-    return filteredLocation;
+  const filtered = data.filter((item) => item.location === location);
+
+  if (filtered.length > 0) {
+    return filtered[0];
   } else {
     const defaultLocation = {
       location: "",
       latitude: 0,
       longitude: 0,
     };
-
     return defaultLocation;
   }
-};
+}
 
 export { getLocationByName, getLocations };

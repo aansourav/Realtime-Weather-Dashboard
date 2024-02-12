@@ -1,11 +1,9 @@
-import logo from "../../assets/logo.svg";
+import LogoImage from "../../assets/logo.svg";
 
-const Logo = () => {
-  return (
-    <a href="./index.html">
-      <img className="h-9" src={logo} alt="Weather App" />
-    </a>
-  );
-};
-
-export default Logo;
+export default function Logo() {
+    return (
+        <a href="/">
+            <img className="h-9" src={LogoImage} alt="Weather App" />
+        </a>
+    );
+}
