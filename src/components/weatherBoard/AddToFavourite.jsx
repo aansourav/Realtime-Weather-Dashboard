@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import redHeartIcon from "../../assets/heart-red.svg";
 import heartIcon from "../../assets/heart.svg";
 import { FavouriteContext, WeatherContext } from "../../context";
@@ -18,6 +18,12 @@ const AddToFavourite = () => {
     }
     setIsFavourite(!isFavourite);
   };
+
+  useEffect(() => {
+    const found = favourites.find((fav) => fav.location === location);
+    setIsFavourite(found);
+  }, []);
+
   return (
     <div className="md:col-span-2">
       <div className="flex items-center justify-end space-x-6">
